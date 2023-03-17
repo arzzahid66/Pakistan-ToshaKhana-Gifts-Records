@@ -85,12 +85,12 @@ gifts_with_retention = df[df['Retention_Cost'] > 0]['Affiliation'].value_counts(
 gifts_retained = df[df['Retained'] == 'Yes'][['Affiliation', 'Retention_Cost']].groupby('Affiliation').agg({'Retention_Cost': 'count', 'Affiliation': 'size'})
 gifts_retained.columns = ['Gifts Retained without Retention Cost', 'Gifts with Retention Cost']
 
-# Create a bar chart of the number of gifts by affiliation
+## Create a bar chart of the number of gifts by affiliation
 data = [go.Bar(x=gifts_by_affiliation.index, y=gifts_by_affiliation.values)]
 
 # Customize the layout of the chart
-layout = go.Layout(title='Most Number of gifts Received ', xaxis=dict(title='Affiliation'), yaxis=dict(title='Number of Gifts'), 
-                   title_x=0.5, title_y=0.9)
+layout = go.Layout(title={'text': 'Most Number of gifts Received', 'x': 0.5, 'y': 0.9, 'xanchor': 'center', 'yanchor': 'middle'},
+                   xaxis=dict(title='Affiliation'), yaxis=dict(title='Number of Gifts'))
 
 # Create a Figure object and plot it with Plotly
 fig = go.Figure(data=data, layout=layout)
@@ -101,11 +101,12 @@ table_data = [go.Table(header=dict(values=['Affiliation', 'Gifts with Retention 
                        cells=dict(values=[gifts_by_affiliation.index, gifts_with_retention.values, gifts_retained['Gifts Retained without Retention Cost'].values]))]
 
 # Create a layout for the table
-table_layout = go.Layout(title='Retention Cost vs. Non-Retention Cost: A Comparison of ToshaKhana Gifts', title_x=0.5, title_y=0.9)
+table_layout = go.Layout(title={'text': 'Retention Cost vs. Non-Retention Cost: A Comparison of ToshaKhana Gifts', 'x': 0.5, 'y': 0.9, 'xanchor': 'center', 'yanchor': 'middle'})
 
 # Create a Figure object for the table and plot it with Plotly
 table_fig = go.Figure(data=table_data, layout=table_layout)
 st.plotly_chart(table_fig)
+
 # top 5 reci received expensive gift 
 # sort the dataframe by 'Assessed_Value' in descending order
 sorted_df = df.sort_values(by='Assessed_Value', ascending=False)
