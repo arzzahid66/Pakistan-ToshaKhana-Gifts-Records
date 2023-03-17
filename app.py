@@ -61,13 +61,15 @@ fig = px.scatter(top_10_df, x='Assessed_Value', y='Retention_Cost',
                  hover_name='Name_of_Recipient',
                  hover_data={'Detail_of_Gifts': True, 'Remarks': True, 'Date': True},
                  size_max=50)
-
 fig.update_layout(
     title={
         'text': 'Top 10 Most Expensive Gifts Recorded by ToshaKhana and Gift Holders',
-        'font': {'size': 20}
-    },
-    title_x=0.5
+        'font': {'size': 20},
+        'x':0.5, # Center the title horizontally
+        'y':0.95, # Adjust the title position vertically
+        'xanchor': 'center', # Anchor the title to the center
+        'yanchor': 'top' # Anchor the title to the top of the plot
+    }
 )
 st.plotly_chart(fig)
 # Read in the dataset as a Pandas DataFrame
