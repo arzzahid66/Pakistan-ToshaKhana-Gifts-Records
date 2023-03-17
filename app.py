@@ -12,19 +12,28 @@ st.write("Dataset link  :https://www.scribd.com/document/630951780/TK-Record-1-2
 df = pd.read_csv("Refined_TK_data.csv")
 df = df.rename(columns=lambda x: x.replace(' ', '_'))
 # Define a custom color palette
+# Define the custom color palette
 colors = ["#FFC300", "#FF5733", "#C70039", "#900C3F", "#581845"]
+
 # Create the Plotly figure with the custom color palette
 fig = px.bar(df, x="Affiliation", y="Assessed_Value", color='Retention_Cost',
              color_discrete_sequence=colors, barmode='group', height=400)
+
+# Update the figure layout with the centered title
 fig.update_layout(
     title={
         'text': 'Top 10 Most Valued Gifts Retained by ToshaKhana with Retention Cost',
-        'font': {'size': 20}
-    },
-    title_x=0.5
+        'font': {'size': 20},
+        'x':0.5, # Center the title horizontally
+        'y':0.95, # Adjust the title position vertically
+        'xanchor': 'center', # Anchor the title to the center
+        'yanchor': 'top' # Anchor the title to the top of the plot
+    }
 )
+
 # Display the Plotly figure in Streamlit
 st.plotly_chart(fig)
+
 # sort the dataframe by 'Assessed_Value' in descending order
 sorted_df = df.sort_values(by='Assessed_Value', ascending=False)
 
