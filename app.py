@@ -1,38 +1,21 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-
+import plotly.graph_objs as go
 st.title(" Pakistan ToshaKhana Gifts Records")
 st.subheader("From 2002 to 2023")
-
 st.subheader("Visualization by : Abdul_Rehman_Zahid & Abdul_Rehman")
-
-
 # Small title
 st.write("Portfolio A_R_Z : https://arzzahid66.github.io/arcodes/")
 st.write("Portfolio A_R : https://abdulrehman1232.github.io/portfolio/")
-
-st.write("Dataset Credit :https://www.kaggle.com/abdullahshahzad12345")
-
-
-
+st.write("Dataset link  :https://www.scribd.com/document/630951780/TK-Record-1-2#")
 df = pd.read_csv("Refined_TK_data.csv")
 df = df.rename(columns=lambda x: x.replace(' ', '_'))
-
-
-import streamlit as st
-import plotly.express as px
-
-# Load data into a pandas DataFrame called "df"
-# ...
-
 # Define a custom color palette
 colors = ["#FFC300", "#FF5733", "#C70039", "#900C3F", "#581845"]
-
 # Create the Plotly figure with the custom color palette
 fig = px.bar(df, x="Affiliation", y="Assessed_Value", color='Retention_Cost',
              color_discrete_sequence=colors, barmode='group', height=400)
-
 fig.update_layout(
     title={
         'text': 'Top 10 Most Valued Gifts Retained by ToshaKhana with Retention Cost',
@@ -40,13 +23,8 @@ fig.update_layout(
     },
     title_x=0.5
 )
-
 # Display the Plotly figure in Streamlit
 st.plotly_chart(fig)
-
-
-
-
 # sort the dataframe by 'Assessed_Value' in descending order
 sorted_df = df.sort_values(by='Assessed_Value', ascending=False)
 
@@ -65,8 +43,6 @@ top_10_Retention_Cost = top_10_df['Retention_Cost']
 top_10_Remarks = top_10_df['Remarks']
 top_10_Affiliation = top_10_df['Affiliation']
 top_10_Date = top_10_df['Date']
-
-
 # create a dataframe from the top 10 rows
 top_10_df = sorted_df.nlargest(10, 'Assessed_Value')
 
@@ -84,13 +60,7 @@ fig.update_layout(
     },
     title_x=0.5
 )
-
 st.plotly_chart(fig)
-
-
-import pandas as pd
-import plotly.graph_objs as go
-
 # Read in the dataset as a Pandas DataFrame
 
 # Calculate the total number of gifts
@@ -125,9 +95,6 @@ table_layout = go.Layout(title='Retention Cost vs. Non-Retention Cost: A Compari
 # Create a Figure object for the table and plot it with Plotly
 table_fig = go.Figure(data=table_data, layout=table_layout)
 st.plotly_chart(table_fig)
-
-
-
 # top 5 reci received expensive gift 
 # sort the dataframe by 'Assessed_Value' in descending order
 sorted_df = df.sort_values(by='Assessed_Value', ascending=False)
@@ -147,13 +114,6 @@ top_5_Retention_Cost = top_5_df['Retention_Cost']
 top_5_Remarks = top_5_df['Remarks']
 top_5_Affiliation = top_5_df['Affiliation']
 top_5_Date = top_5_df['Date']
-
-# expensive
-import pandas as pd
-import plotly.graph_objs as go
-
-# Read the dataset
-
 # Create a new dataframe with top 5 recipients by assessed value
 top_5_assessed = df.groupby('Name_of_Recipient')['Assessed_Value'].sum().nlargest(5).reset_index()
 
@@ -196,14 +156,10 @@ remarks_fig.update_layout(
 )
 st.plotly_chart(remarks_fig)
 
-import plotly.express as px
-
 fig = px.bar(top_5_df, x='Detail_of_Gifts', y='Assessed_Value',
              hover_data=['Name_of_Recipient'],
              labels={'Detail_of_Gifts': 'Gift', 'Assessed_Value': 'Assessed Value'})
 fig.update_layout(title='Top 5 Most Expensive Gifts & Name of Recipient')
-
-
 st.plotly_chart(fig)
 
 
